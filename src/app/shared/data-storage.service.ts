@@ -32,12 +32,7 @@ export class DataStorageService {
   }
 
   saveEditedRecipe(index: number, newRecipe: Recipe) {
-    const recipes = this.recipeService.getRecipes();
-    for (let i = 0; i < recipes.length; i++) {
-    console.log('All Recipes ' + i + ' ' + recipes[i].name);
-    }
-    console.log('Id is :' + index + ' and recipe is '  + newRecipe.name
-    );
-    return this.http.put(this.url, newRecipe);
+    return this.http.put('https://ng-recipe-book-cba84.firebaseio.com/recipes/'
+      + index + '.json', newRecipe);
   }
 }
