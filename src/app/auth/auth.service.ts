@@ -11,6 +11,15 @@ interface AuthResponseData {
   localId: string;
 }
 
+interface AuthResponseDataLogin {
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  expiresIn: string;
+  localId: string;
+  registered: true;
+}
+
 @Injectable({providedIn: 'root'})
 export class AuthService {
   constructor(private http: HttpClient) {
@@ -37,5 +46,14 @@ export class AuthService {
         return throwError(errorMessage);
       }
     ));
+  }
+
+  login(email: string, password: string){
+    return this.http.post<AuthResponseDataLogin>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
+      'AIzaSyAB3kiJaUdf-eUtDAn2uy0r1rHxk_bljnQ', {
+      email: email,
+      password: password,
+      returnSecureToken: true
+    });
   }
 }
