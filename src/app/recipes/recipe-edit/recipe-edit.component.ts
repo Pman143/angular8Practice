@@ -42,7 +42,9 @@ export class RecipeEditComponent implements OnInit {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
      const rec: Recipe = this.recipeForm.value;
       this.dataStorageService.saveEditedRecipe(this.id, rec)
-       .subscribe();
+       .subscribe(recipe => {
+         alert(recipe.name + ' was updated successfully');
+       });
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
     }
