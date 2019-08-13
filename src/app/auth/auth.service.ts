@@ -100,6 +100,16 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      if(expirationDuration < 5000){
+        alert('You are running out of time');
+      }
+      this.logout();
+    }, expirationDuration);
+  }
+
   logout() {
     this.user.next(null);
     this.router.navigate(['/auth']);
@@ -111,9 +121,5 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
-  autoLogout(expirationDuration: number) {
-   this.tokenExpirationTimer = setTimeout(() => {
-      this.logout();
-    }, expirationDuration);
-  }
+
 }
